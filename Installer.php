@@ -13,6 +13,7 @@ use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Script\CommandEvent;
 use Composer\Script\Event;
 use Composer\Util\Filesystem;
+use Exception;
 use React\Promise\PromiseInterface;
 
 /**
@@ -22,7 +23,7 @@ use React\Promise\PromiseInterface;
 class Installer extends LibraryInstaller
 {
     const EXTRA_BOOTSTRAP = 'bootstrap';
-    const EXTENSION_FILE = 'yiisoft/extensions.php';
+    const EXTENSION_FILE = 'ziiframework/extensions.php';
 
 
     /**
@@ -39,10 +40,10 @@ class Installer extends LibraryInstaller
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
         $afterInstall = function () use ($package) {
-            // add the package to yiisoft/extensions.php
+            // add the package to ziiframework/extensions.php
             $this->addPackage($package);
             // ensure the yii2-dev package also provides Yii.php in the same place as yii2 does
-            if ($package->getName() == 'yiisoft/yii2-dev') {
+            if ($package->getName() === 'ziiframework/zii') {
                 $this->linkBaseYiiFiles();
             }
         };
@@ -68,7 +69,7 @@ class Installer extends LibraryInstaller
             $this->removePackage($initial);
             $this->addPackage($target);
             // ensure the yii2-dev package also provides Yii.php in the same place as yii2 does
-            if ($initial->getName() == 'yiisoft/yii2-dev') {
+            if ($initial->getName() === 'ziiframework/zii') {
                 $this->linkBaseYiiFiles();
             }
         };
@@ -91,10 +92,10 @@ class Installer extends LibraryInstaller
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
         $afterUninstall = function () use ($package) {
-            // remove the package from yiisoft/extensions.php
+            // remove the package from ziiframework/extensions.php
             $this->removePackage($package);
             // remove links for Yii.php
-            if ($package->getName() == 'yiisoft/yii2-dev') {
+            if ($package->getName() === 'ziiframework/zii') {
                 $this->removeBaseYiiFiles();
             }
         };
@@ -230,7 +231,7 @@ class Installer extends LibraryInstaller
 
     protected function linkBaseYiiFiles()
     {
-        $yiiDir = $this->vendorDir . '/yiisoft/yii2';
+        $yiiDir = $this->vendorDir . '/ziiframework/zii/src';
         if (!file_exists($yiiDir)) {
             mkdir($yiiDir, 0777, true);
         }
@@ -238,14 +239,14 @@ class Installer extends LibraryInstaller
             file_put_contents($yiiDir . '/' . $file, <<<EOF
 <?php
 /**
- * This is a link provided by the yiisoft/yii2-dev package via yii2-composer plugin.
+ * This is a link provided by the ziiframework/zii package via ziiframework/composer plugin.
  *
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
-return require(__DIR__ . '/../yii2-dev/framework/$file');
+return require(__DIR__ . '/../zii/src/$file');
 
 EOF
             );
@@ -254,7 +255,7 @@ EOF
 
     protected function removeBaseYiiFiles()
     {
-        $yiiDir = $this->vendorDir . '/yiisoft/yii2';
+        $yiiDir = $this->vendorDir . '/ziiframework/zii/src';
         foreach (['Yii.php', 'BaseYii.php', 'classes.php'] as $file) {
             if (file_exists($yiiDir . '/' . $file)) {
                 unlink($yiiDir . '/' . $file);
@@ -315,8 +316,8 @@ EOF
                 try {
                     if (chmod($path, octdec($permission))) {
                         echo "done.\n";
-                    };
-                } catch (\Exception $e) {
+                    }
+                } catch (Exception $e) {
                     echo $e->getMessage() . "\n";
                 }
             } else {
@@ -346,7 +347,7 @@ EOF
     protected static function generateRandomString()
     {
         if (!extension_loaded('openssl')) {
-            throw new \Exception('The OpenSSL PHP extension is required by Yii2.');
+            throw new Exception('The OpenSSL PHP extension is required by Yii2.');
         }
         $length = 32;
         $bytes = openssl_random_pseudo_bytes($length);
@@ -387,7 +388,7 @@ EOF
                 if (copy($source, $target[0])) {
                     echo "done.\n";
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 echo $e->getMessage() . "\n";
             }
         }

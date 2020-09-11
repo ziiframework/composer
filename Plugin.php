@@ -48,7 +48,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $this->_installer = new Installer($io, $composer);
         $composer->getInstallationManager()->addInstaller($this->_installer);
         $this->_vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
-        $file = $this->_vendorDir . '/yiisoft/extensions.php';
+        $file = $this->_vendorDir . '/ziiframework/extensions.php';
         if (!is_file($file)) {
             @mkdir(dirname($file), 0777, true);
             file_put_contents($file, "<?php\n\nreturn [];\n");
@@ -129,12 +129,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function showUpgradeNotes(Script\Event $event)
     {
-        $packageName = 'yiisoft/yii2';
+        $packageName = 'ziiframework/zii';
         if (!isset($this->_packageUpdates[$packageName])) {
             return;
         }
 
-        $package = $this->_packageUpdates['yiisoft/yii2'];
+        $package = $this->_packageUpdates['ziiframework/zii'];
 
         // do not show a notice on up/downgrades between dev versions
         // avoid messages like from version dev-master to dev-master
@@ -186,7 +186,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         if (!$this->isNumericVersion($maxVersion)) {
             $maxVersion = 'master';
         }
-        $io->write("  https://github.com/yiisoft/yii2/blob/$maxVersion/framework/UPGRADE.md\n");
+        $io->write("  https://github.com/ziiframework/zii/blob/$maxVersion/UPGRADE.md\n");
     }
 
     /**
