@@ -18,7 +18,6 @@
     ],
     "require": {
         "ext-openssl": "*",
-        "ext-zend-opcache": "*",
         "composer-plugin-api": "^1.0 | ^2.0"
     },
     "require-dev": {
