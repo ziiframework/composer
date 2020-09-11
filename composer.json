@@ -1,24 +1,19 @@
 {
-    "name": "yiisoft/yii2-composer",
-    "description": "The composer plugin for Yii extension installer",
-    "keywords": ["yii2", "composer", "extension installer"],
+    "name": "ziiframework/composer",
+    "description": "zii-framework composer",
+    "keywords": ["zii-framework", "composer"],
     "type": "composer-plugin",
     "license": "BSD-3-Clause",
     "support": {
-        "issues": "https://github.com/yiisoft/yii2-composer/issues",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2-composer"
+        "issues": "https://github.com/ziiframework/composer/issues",
+        "source": "https://github.com/ziiframework/composer"
     },
     "authors": [
         {
-            "name": "Qiang Xue",
-            "email": "qiang.xue@gmail.com"
-        },
-        {
-            "name": "Carsten Brandt",
-            "email": "mail@cebe.cc"
+            "name": "Yii Team",
+            "email": "team@yiiframework.com",
+            "homepage": "http://www.yiiframework.com/team",
+            "role": "Founder and project lead"
         }
     ],
     "require": {
@@ -26,7 +21,7 @@
     },
     "require-dev": {
         "composer/composer": "^1.0 | ^2.0@dev",
-        "phpunit/phpunit": "<7"
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": { "yii\\composer\\": "" }
@@ -37,7 +32,7 @@
     "extra": {
         "class": "yii\\composer\\Plugin",
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }
