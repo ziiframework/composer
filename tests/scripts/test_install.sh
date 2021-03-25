@@ -4,7 +4,7 @@
 php ../../make_composer_json.php composer.json << EOF
 {
     "require": {
-        "yiisoft/yii2": "~2.0.16"
+        "ziiframework/zii": "~3.1.4"
     },
     "repositories": [
         {
@@ -18,5 +18,5 @@ EOF
 $COMPOSER_BINARY install
 
 test -f vendor/autoload.php || (echo "vendor/autoload.php does not exist!"; exit 1)
-test -f vendor/yiisoft/extensions.php || (echo "vendor/yiisoft/extensions.php does not exist!"; exit 1)
-test -d vendor/yiisoft/yii2 || (echo "vendor/yiisoft/yii2 does not exist!"; exit 1)
+test -f vendor/ziiframework/extensions.php || (echo "vendor/ziiframework/extensions.php does not exist!"; exit 1)
+test -d vendor/ziiframework/zii || (echo "vendor/ziiframework/zii does not exist!"; exit 1)

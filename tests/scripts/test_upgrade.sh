@@ -5,7 +5,7 @@ php ../../make_composer_json.php composer.json << EOF
 {
 
     "require": {
-        "yiisoft/yii2": "^2.0",
+        "ziiframework/zii": "^3.0",
         "cebe/markdown": "~1.0.0"
     },
     "repositories": [
@@ -23,7 +23,7 @@ php ../../make_composer_json.php composer.json << EOF
 {
 
     "require": {
-        "yiisoft/yii2": "^2.0",
+        "ziiframework/zii": "^3.0",
         "cebe/markdown": "~1.1"
     },
     "repositories": [
