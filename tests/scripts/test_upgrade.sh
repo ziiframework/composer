@@ -7,13 +7,7 @@ php ../../make_composer_json.php composer.json << EOF
     "require": {
         "ziiframework/zii": "^3.0",
         "cebe/markdown": "~1.0.0"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    }
 }
 EOF
 
@@ -25,13 +19,7 @@ php ../../make_composer_json.php composer.json << EOF
     "require": {
         "ziiframework/zii": "^3.0",
         "cebe/markdown": "~1.1"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    }
 }
 EOF
 

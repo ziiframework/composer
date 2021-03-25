@@ -4,14 +4,8 @@
 php ../../make_composer_json.php composer.json << EOF
 {
     "require": {
-        "ziiframework/zii": "~3.1.4"
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+        "ziiframework/zii": "~3.2.4"
+    }
 }
 EOF
 
