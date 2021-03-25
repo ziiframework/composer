@@ -1,0 +1,419 @@
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+new file mode 100644
+index 00000000..00853fc7
+--- /dev/null
++++ b/.github/workflows/build.yml
+@@ -0,0 +1,72 @@
++on:
++  - pull_request
++  - push
++
++name: build
++
++jobs:
++  tests:
++    name: PHP-${{ matrix.php }}-${{ matrix.os }}
++
++    env:
++      key: cache-v1
++
++    runs-on: ${{ matrix.os }}
++
++    strategy:
++      matrix:
++        os:
++          - ubuntu-latest
++
++        php:
++          - "5.4"
++          - "5.5"
++          - "5.6"
++          - "7.0"
++          - "7.1"
++          - "7.2"
++          - "7.3"
++          - "7.4"
++          - "8.0"
++
++        composer:
++          - "dev-master"
++
++    steps:
++      - name: Configure git
++        run: git config --global core.autocrlf false
++
++      - name: Checkout
++        uses: actions/checkout@v2.3.4
++
++      - name: Determine composer cache directory
++        run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
++
++      - name: Cache dependencies installed with composer
++        uses: actions/cache@v2
++        with:
++          path: ${{ env.COMPOSER_CACHE_DIR }}
++          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
++          restore-keys: |
++            php${{ matrix.php }}-composer-
++
++      - name: Install composer
++        run: composer require --dev "composer/composer:${{ matrix.composer }}" --update-with-dependencies
++
++      - name: Run tests with phpunit
++        if: matrix.php != '7.4'
++        run: |
++          vendor/bin/phpunit --verbose --colors=always
++          cd tests/scripts && sh run.sh
++
++      - name: Run tests with phpunit
++        if: matrix.php == '7.4'
++        run: |
++          vendor/bin/phpunit --verbose --coverage-clover=clover.xml --colors=always
++          cd tests/scripts && sh run.sh
++
++      - name: Upload code coverage scrutinizer
++        if: matrix.php == '7.4'
++        run: |
++          wget https://scrutinizer-ci.com/ocular.phar
++          php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+diff --git a/.github/workflows/composer-110.yml b/.github/workflows/composer-110.yml
+new file mode 100644
+index 00000000..5b76e287
+--- /dev/null
++++ b/.github/workflows/composer-110.yml
+@@ -0,0 +1,59 @@
++on:
++  - pull_request
++  - push
++
++name: composer-110
++
++jobs:
++  tests:
++    name: PHP-${{ matrix.php }}-${{ matrix.os }}
++
++    env:
++      key: cache-v1
++
++    runs-on: ${{ matrix.os }}
++
++    strategy:
++      matrix:
++        os:
++          - ubuntu-latest
++
++        php:
++          - "5.4"
++          - "5.5"
++          - "5.6"
++          - "7.0"
++          - "7.1"
++          - "7.2"
++          - "7.3"
++          - "7.4"
++          - "8.0"
++
++        composer:
++          - "1.10.*"
++
++    steps:
++      - name: Configure git
++        run: git config --global core.autocrlf false
++
++      - name: Checkout
++        uses: actions/checkout@v2.3.4
++
++      - name: Determine composer cache directory
++        run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
++
++      - name: Cache dependencies installed with composer
++        uses: actions/cache@v2
++        with:
++          path: ${{ env.COMPOSER_CACHE_DIR }}
++          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
++          restore-keys: |
++            php${{ matrix.php }}-composer-
++
++      - name: Install composer
++        run: composer require --dev "composer/composer:${{ matrix.composer }}" --update-with-dependencies
++
++      - name: Run tests with phpunit
++        run: |
++          vendor/bin/phpunit --verbose --colors=always
++          cd tests/scripts && sh run.sh
+diff --git a/.github/workflows/composer-16.yml b/.github/workflows/composer-16.yml
+new file mode 100644
+index 00000000..5d159b30
+--- /dev/null
++++ b/.github/workflows/composer-16.yml
+@@ -0,0 +1,59 @@
++on:
++  - pull_request
++  - push
++
++name: composer-16
++
++jobs:
++  tests:
++    name: PHP-${{ matrix.php }}-${{ matrix.os }}
++
++    env:
++      key: cache-v1
++
++    runs-on: ${{ matrix.os }}
++
++    strategy:
++      matrix:
++        os:
++          - ubuntu-latest
++
++        php:
++          - "5.4"
++          - "5.5"
++          - "5.6"
++          - "7.0"
++          - "7.1"
++          - "7.2"
++          - "7.3"
++          - "7.4"
++          - "8.0"
++
++        composer:
++          - "1.6.*"
++
++    steps:
++      - name: Configure git
++        run: git config --global core.autocrlf false
++
++      - name: Checkout
++        uses: actions/checkout@v2.3.4
++
++      - name: Determine composer cache directory
++        run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
++
++      - name: Cache dependencies installed with composer
++        uses: actions/cache@v2
++        with:
++          path: ${{ env.COMPOSER_CACHE_DIR }}
++          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
++          restore-keys: |
++            php${{ matrix.php }}-composer-
++
++      - name: Install composer
++        run: composer require --dev "composer/composer:${{ matrix.composer }}" --update-with-dependencies
++
++      - name: Run tests with phpunit
++        run: |
++          vendor/bin/phpunit --verbose --colors=always
++          cd tests/scripts && sh run.sh
+diff --git a/.github/workflows/composer-19.yml b/.github/workflows/composer-19.yml
+new file mode 100644
+index 00000000..a2c3dfb9
+--- /dev/null
++++ b/.github/workflows/composer-19.yml
+@@ -0,0 +1,59 @@
++on:
++  - pull_request
++  - push
++
++name: composer-19
++
++jobs:
++  tests:
++    name: PHP-${{ matrix.php }}-${{ matrix.os }}
++
++    env:
++      key: cache-v1
++
++    runs-on: ${{ matrix.os }}
++
++    strategy:
++      matrix:
++        os:
++          - ubuntu-latest
++
++        php:
++          - "5.4"
++          - "5.5"
++          - "5.6"
++          - "7.0"
++          - "7.1"
++          - "7.2"
++          - "7.3"
++          - "7.4"
++          - "8.0"
++
++        composer:
++          - "1.9.*"
++
++    steps:
++      - name: Configure git
++        run: git config --global core.autocrlf false
++
++      - name: Checkout
++        uses: actions/checkout@v2.3.4
++
++      - name: Determine composer cache directory
++        run: echo "COMPOSER_CACHE_DIR=$(composer config cache-dir)" >> $GITHUB_ENV
++
++      - name: Cache dependencies installed with composer
++        uses: actions/cache@v2
++        with:
++          path: ${{ env.COMPOSER_CACHE_DIR }}
++          key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
++          restore-keys: |
++            php${{ matrix.php }}-composer-
++
++      - name: Install composer
++        run: composer require --dev "composer/composer:${{ matrix.composer }}" --update-with-dependencies
++
++      - name: Run tests with phpunit
++        run: |
++          vendor/bin/phpunit --verbose --colors=always
++          cd tests/scripts && sh run.sh
+diff --git a/.scrutinizer.yml b/.scrutinizer.yml
+new file mode 100644
+index 00000000..76d03138
+--- /dev/null
++++ b/.scrutinizer.yml
+@@ -0,0 +1,20 @@
++checks:
++    php: true
++
++filter:
++    paths:
++        - "src/*"
++
++tools:
++    php_code_coverage:
++        enabled: true
++
++build:
++    nodes:
++        analysis:
++            environment:
++                php: 7.4.12
++
++            tests:
++                override:
++                    - php-scrutinizer-run
+diff --git a/.travis.yml b/.travis.yml
+deleted file mode 100644
+index 8b59a6d6..00000000
+--- a/.travis.yml
++++ /dev/null
+@@ -1,114 +0,0 @@
+-dist: trusty
+-
+-language: php
+-
+-matrix:
+-  include:
+-    - php: 5.4
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 5.4
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 5.4
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 5.4
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 5.5
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 5.5
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 5.5
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 5.5
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 5.6
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 5.6
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 5.6
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 5.6
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 7.0
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 7.0
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 7.0
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 7.0
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 7.1
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 7.1
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 7.1
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 7.1
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 7.2
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 7.2
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 7.2
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 7.2
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 7.3
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 7.3
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 7.3
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 7.3
+-      env: COMPOSER_VERSION=2
+-
+-    - php: 7.4
+-      env: COMPOSER_VERSION=1.6.*
+-    - php: 7.4
+-      env: COMPOSER_VERSION=1.9.*
+-    - php: 7.4
+-      env: COMPOSER_VERSION=1.10.*
+-    - php: 7.4
+-      env: COMPOSER_VERSION=2
+-
+-    - php: nightly
+-      env: COMPOSER_VERSION=2
+-
+-  allow_failures:
+-    - php: nightly
+-
+-sudo: false
+-
+-# cache vendor dirs
+-cache:
+-  directories:
+-    - $HOME/.composer/cache
+-    - $HOME/.bin
+-
+-install:
+-  - travis_retry composer self-update && composer --version
+-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+-  - travis_retry composer install --prefer-dist --no-interaction
+-
+-before_script:
+-  - |
+-    if [ $TRAVIS_PHP_VERSION = '5.6' ]; then
+-      PHPUNIT_FLAGS="--coverage-clover=clover.xml"
+-    else
+-      phpenv config-rm xdebug.ini || return 0
+-    fi
+-  - |
+-    if [ $COMPOSER_VERSION = 2 ] ; then
+-      composer require --dev "composer/composer:^2.0@dev" --update-with-dependencies
+-    else
+-      composer require --dev "composer/composer:$COMPOSER_VERSION" --update-with-dependencies
+-    fi
+-
+-script:
+-  - ./vendor/bin/phpunit --verbose $PHPUNIT_FLAGS
+-  - cd tests/scripts && sh run.sh
