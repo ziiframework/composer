@@ -17,7 +17,6 @@ Thumbs.db
 
 # composer
 composer.phar
-/composer.lock
 /vendor
 
 # phpunit itself is not needed
