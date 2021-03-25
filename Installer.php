@@ -10,7 +10,6 @@ namespace yii\composer;
 use Composer\Package\PackageInterface;
 use Composer\Installer\LibraryInstaller;
 use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Script\CommandEvent;
 use Composer\Script\Event;
 use Composer\Util\Filesystem;
 use Exception;
