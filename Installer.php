@@ -19,14 +19,14 @@ use React\Promise\PromiseInterface;
  */
 class Installer extends LibraryInstaller
 {
-    const EXTRA_BOOTSTRAP = 'bootstrap';
-    const EXTENSION_FILE = 'ziiframework/extensions.php';
+    public const EXTRA_BOOTSTRAP = 'bootstrap';
+    public const EXTENSION_FILE = 'ziiframework/extensions.php';
 
 
     /**
      * @inheritdoc
      */
-    public function supports($packageType)
+    public function supports($packageType): bool
     {
         return $packageType === 'yii2-extension';
     }
