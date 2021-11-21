@@ -111,7 +111,7 @@ class Installer extends LibraryInstaller
         $afterUninstall();
     }
 
-    protected function addPackage(PackageInterface $package)
+    protected function addPackage(PackageInterface $package): void
     {
         $extension = [
             'name' => $package->getName(),
@@ -132,7 +132,7 @@ class Installer extends LibraryInstaller
         $this->saveExtensions($extensions);
     }
 
-    protected function generateDefaultAlias(PackageInterface $package)
+    protected function generateDefaultAlias(PackageInterface $package): array
     {
         $fs = new Filesystem;
         $vendorDir = $fs->normalizePath($this->vendorDir);
@@ -178,7 +178,7 @@ class Installer extends LibraryInstaller
         return $aliases;
     }
 
-    protected function removePackage(PackageInterface $package)
+    protected function removePackage(PackageInterface $package): void
     {
         $packages = $this->loadExtensions();
         unset($packages[$package->getName()]);
@@ -214,7 +214,7 @@ class Installer extends LibraryInstaller
         return $extensions;
     }
 
-    protected function saveExtensions(array $extensions)
+    protected function saveExtensions(array $extensions): void
     {
         $file = $this->vendorDir . '/' . static::EXTENSION_FILE;
         if (!file_exists(dirname($file))) {
@@ -228,7 +228,7 @@ class Installer extends LibraryInstaller
         }
     }
 
-    protected function linkBaseYiiFiles()
+    protected function linkBaseYiiFiles(): void
     {
         $yiiDir = $this->vendorDir . '/ziiframework/zii/src';
         if (!file_exists($yiiDir)) {
@@ -252,7 +252,7 @@ EOF
         }
     }
 
-    protected function removeBaseYiiFiles()
+    protected function removeBaseYiiFiles(): void
     {
         $yiiDir = $this->vendorDir . '/ziiframework/zii/src';
         foreach (['Yii.php', 'BaseYii.php', 'classes.php'] as $file) {
@@ -270,7 +270,7 @@ EOF
      *
      * @param Event $event
      */
-    public static function postCreateProject($event)
+    public static function postCreateProject($event): void
     {
         static::runCommands($event, __METHOD__);
     }
@@ -281,7 +281,7 @@ EOF
      * @param Event $event
      * @since 2.0.5
      */
-    public static function postInstall($event)
+    public static function postInstall($event): void
     {
         static::runCommands($event, __METHOD__);
     }
@@ -293,7 +293,7 @@ EOF
      * @param string $extraKey
      * @since 2.0.5
      */
-    protected static function runCommands($event, $extraKey)
+    protected static function runCommands($event, $extraKey): void
     {
         $params = $event->getComposer()->getPackage()->getExtra();
         if (isset($params[$extraKey]) && is_array($params[$extraKey])) {
@@ -307,7 +307,7 @@ EOF
      * Sets the correct permission for the files and directories listed in the extra section.
      * @param array $paths the paths (keys) and the corresponding permission octal strings (values)
      */
-    public static function setPermission(array $paths)
+    public static function setPermission(array $paths): void
     {
         foreach ($paths as $path => $permission) {
             echo "chmod('$path', $permission)...";
@@ -329,7 +329,7 @@ EOF
      * Generates a cookie validation key for every app config listed in "config" in extra section.
      * You can provide one or multiple parameters as the configuration files which need to have validation key inserted.
      */
-    public static function generateCookieValidationKey()
+    public static function generateCookieValidationKey(): void
     {
         $configs = func_get_args();
         $key = self::generateRandomString();
@@ -343,7 +343,7 @@ EOF
         }
     }
 
-    protected static function generateRandomString()
+    protected static function generateRandomString(): string
     {
         if (!extension_loaded('openssl')) {
             throw new Exception('The OpenSSL PHP extension is required by Yii2.');
@@ -361,7 +361,7 @@ EOF
      * existing files).
      * @since 2.0.5
      */
-    public static function copyFiles(array $paths)
+    public static function copyFiles(array $paths): void
     {
         foreach ($paths as $source => $target) {
             // handle file target as array [path, overwrite]

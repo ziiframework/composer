@@ -87,7 +87,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * Listen to POST_PACKAGE_UPDATE event and take note of the package updates.
      * @param PackageEvent $event
      */
-    public function checkPackageUpdates(PackageEvent $event)
+    public function checkPackageUpdates(PackageEvent $event): void
     {
         $operation = $event->getOperation();
         if ($operation instanceof UpdateOperation) {
@@ -106,7 +106,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @param UpdateOperation $operation
      * @return bool
      */
-    private function _isUpgrade(PackageEvent $event, UpdateOperation $operation)
+    private function _isUpgrade(PackageEvent $event, UpdateOperation $operation): bool
     {
         // Composer 1.7.0+
         if (method_exists('Composer\Package\Version\VersionParser', 'isUpgrade')) {
@@ -127,7 +127,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * Listen to POST_UPDATE_CMD event to display information about upgrade notes if appropriate.
      * @param Script\Event $event
      */
-    public function showUpgradeNotes(Script\Event $event)
+    public function showUpgradeNotes(Script\Event $event): void
     {
         $packageName = 'ziiframework/zii';
         if (!isset($this->_packageUpdates[$packageName])) {
@@ -179,7 +179,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @param IOInterface $io
      * @param array $package
      */
-    private function printUpgradeLink($io, $package)
+    private function printUpgradeLink($io, $package): void
     {
         $maxVersion = $package['direction'] === 'up' ? $package['toPretty'] : $package['fromPretty'];
         // make sure to always show a valid link, even if $maxVersion is something like dev-master
@@ -194,7 +194,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @param IOInterface $io
      * @param array $package
      */
-    private function printUpgradeIntro($io, $package)
+    private function printUpgradeIntro($io, $package): void
     {
         $io->write("\n  <fg=yellow;options=bold>Seems you have "
             . ($package['direction'] === 'up' ? 'upgraded' : 'downgraded')
@@ -250,7 +250,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @param string $version
      * @return bool
      */
-    private function isNumericVersion($version)
+    private function isNumericVersion($version): bool
     {
         return (bool) preg_match('~^([0-9]\.[0-9]+\.?[0-9\.]*)~', $version);
     }
