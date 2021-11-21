@@ -2,7 +2,7 @@ on:
   - pull_request
   - push
 
-name: composer-200
+name: composer-2x
 
 jobs:
   tests:
@@ -23,7 +23,7 @@ jobs:
           - "8.0"
 
         composer:
-          - "2.0.*"
+          - "2.*"
 
     steps:
       - name: Configure git
