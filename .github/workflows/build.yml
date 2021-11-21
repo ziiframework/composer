@@ -23,7 +23,7 @@ jobs:
           - "8.0"
 
         composer:
-          - "dev-master"
+          - "dev-main"
 
     steps:
       - name: Configure git
