@@ -24,21 +24,16 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @var Installer
      */
     private $_installer;
-    /**
-     * @var string path to the vendor directory.
-     */
-    private $_vendorDir;
-
 
     /**
      * @inheritdoc
      */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
         $this->_installer = new Installer($io, $composer);
         $composer->getInstallationManager()->addInstaller($this->_installer);
-        $this->_vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
-        $file = $this->_vendorDir . '/ziiframework/extensions.php';
+        $vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
+        $file = $vendorDir . '/ziiframework/extensions.php';
         if (!is_file($file)) {
             @mkdir(dirname($file), 0777, true);
             file_put_contents($file, "<?php\n\nreturn [];\n");
@@ -48,7 +43,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     /**
      * @inheritdoc
      */
-    public function deactivate(Composer $composer, IOInterface $io)
+    public function deactivate(Composer $composer, IOInterface $io): void
     {
         $composer->getInstallationManager()->removeInstaller($this->_installer);
     }
@@ -56,7 +51,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     /**
      * @inheritdoc
      */
-    public function uninstall(Composer $composer, IOInterface $io)
+    public function uninstall(Composer $composer, IOInterface $io): void
     {
     }
 
@@ -64,7 +59,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      * @inheritdoc
      * @return array The event names to listen to.
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [];
     }
