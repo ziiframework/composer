@@ -42,7 +42,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $file = $vendorDir . '/ziiframework/extensions.php';
 
         if (!is_file($file)) {
-            mkdir(dirname($file), 0777, true);
+            if (!is_dir(dirname($file))) {
+                mkdir(dirname($file), 0777, true);
+            }
             file_put_contents($file, "<?php\n\nreturn [];\n");
         }
     }
