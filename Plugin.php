@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -31,11 +34,15 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function activate(Composer $composer, IOInterface $io): void
     {
         $this->_installer = new Installer($io, $composer);
+
         $composer->getInstallationManager()->addInstaller($this->_installer);
+
         $vendorDir = rtrim($composer->getConfig()->get('vendor-dir'), '/');
+
         $file = $vendorDir . '/ziiframework/extensions.php';
+
         if (!is_file($file)) {
-            @mkdir(dirname($file), 0777, true);
+            mkdir(dirname($file), 0777, true);
             file_put_contents($file, "<?php\n\nreturn [];\n");
         }
     }
