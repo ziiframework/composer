@@ -1,6 +1,6 @@
 {
     "name": "ziiframework/composer",
-    "description": "zii-framework composer",
+    "description": "zii-framework composer plugin",
     "keywords": [
         "zii-framework",
         "composer"
@@ -15,14 +15,14 @@
         {
             "name": "Yii Team",
             "email": "team@yiiframework.com",
-            "homepage": "http://www.yiiframework.com/team",
+            "homepage": "https://www.yiiframework.com/team",
             "role": "Founder and project lead"
         }
     ],
     "require": {
-        "php": ">=7.3.0",
+        "php": ">=7.4.0",
         "ext-openssl": "*",
-        "composer-plugin-api": "^1.0|^2.0"
+        "composer-plugin-api": "^2.0"
     },
     "require-dev": {
         "composer/composer": "^2.0",
@@ -37,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "tests\\": "tests"
+            "tests\\": "tests/"
         }
     },
     "scripts": {
