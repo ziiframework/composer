@@ -5,6 +5,11 @@ php ../../make_composer_json.php composer.json << EOF
 {
     "require": {
         "ziiframework/zii": "~3.5.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "ziiframework/composer": true
+        }
     }
 }
 EOF
