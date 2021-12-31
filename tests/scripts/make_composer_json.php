@@ -21,7 +21,7 @@ $packageJson = file_get_contents(__DIR__ . '/../../composer.json');
 $packageComposerJson = json_decode($packageJson, true);
 check_json_error($packageJson);
 $PLUGIN_SOURCE = dirname(dirname(__DIR__)) . '/package.zip';
-$packageComposerJson['version'] = '3.2.1';
+$packageComposerJson['version'] = '3.4.0';
 $packageComposerJson['dist'] = array(
     'url' => "file://$PLUGIN_SOURCE",
     'type' => 'zip',
