@@ -29,7 +29,7 @@ $packageComposerJson['dist'] = array(
 
 $rootComposerJson = json_decode($json, true);
 check_json_error($json);
-$rootComposerJson['require']['ziiframework/composer'] = '3.2.1 as 3.2.x-dev';
+$rootComposerJson['require']['ziiframework/composer'] = '3.4.0 as 3.4.x-dev';
 $rootComposerJson['repositories'][] = array(
     'type' => 'package',
     'package' => $packageComposerJson,
