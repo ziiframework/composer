@@ -4,7 +4,7 @@
 php ../../make_composer_json.php composer.json << EOF
 {
     "require": {
-        "ziiframework/zii": "~3.2.4"
+        "ziiframework/zii": "~3.5.4"
     }
 }
 EOF
