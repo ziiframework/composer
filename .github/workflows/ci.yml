@@ -6,7 +6,7 @@ on:
 
 jobs:
   tests:
-    name: PHP-${{ matrix.php }}-${{ matrix.os }}
+    name: PHP-${{ matrix.php }}-composer:${{ matrix.composer }}
 
     runs-on: ${{ matrix.os }}
 
