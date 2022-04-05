@@ -42,7 +42,6 @@
     },
     "scripts": {
         "redo-install": [
-            "rm -rf vendor/",
             "rm -f composer.lock",
             "@composer self-update -vvv",
             "@composer install -vvv"
@@ -55,4 +54,3 @@
         }
     }
 }
-
