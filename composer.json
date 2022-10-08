@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=7.4.5",
         "ext-openssl": "*",
         "composer-plugin-api": "^2.0"
     },
