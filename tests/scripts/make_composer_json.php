@@ -21,7 +21,7 @@ $packageJson = file_get_contents(__DIR__ . '/../../composer.json');
 $packageComposerJson = json_decode($packageJson, true);
 check_json_error($packageJson);
 $PLUGIN_SOURCE = dirname(dirname(__DIR__)) . '/package.zip';
-$packageComposerJson['version'] = '3.5.0';
+$packageComposerJson['version'] = '3.8.0';
 $packageComposerJson['dist'] = array(
     'url' => "file://$PLUGIN_SOURCE",
     'type' => 'zip',
@@ -29,7 +29,7 @@ $packageComposerJson['dist'] = array(
 
 $rootComposerJson = json_decode($json, true);
 check_json_error($json);
-$rootComposerJson['require']['ziiframework/composer'] = '3.5.0 as 3.5.x-dev';
+$rootComposerJson['require']['ziiframework/composer'] = '3.8.0 as 3.8.x-dev';
 $rootComposerJson['repositories'][] = array(
     'type' => 'package',
     'package' => $packageComposerJson,
