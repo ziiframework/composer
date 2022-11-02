@@ -6,7 +6,7 @@ php ../../make_composer_json.php composer.json << EOF
 
     "require": {
         "ziiframework/zii": "^3.8",
-        "cebe/markdown": "~1.0.0"
+        "symfony/finder": "^5.4"
     },
     "config": {
         "allow-plugins": {
@@ -23,7 +23,7 @@ php ../../make_composer_json.php composer.json << EOF
 
     "require": {
         "ziiframework/zii": "^3.8",
-        "cebe/markdown": "~1.1"
+        "symfony/finder": "^6.0"
     },
     "config": {
         "allow-plugins": {
