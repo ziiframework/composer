@@ -40,5 +40,5 @@ jobs:
 
       - name: PHPUnit
         run: |
-          vendor/bin/phpunit --verbose --colors=always
+          vendor/bin/phpunit --colors=always
           cd tests/scripts && sh run.sh
