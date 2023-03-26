@@ -27,8 +27,14 @@ jobs:
       - name: Configure git
         run: git config --global core.autocrlf false
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - run: composer self-update -vvv
 
       - name: Install composer
         run: composer require --dev "composer/composer:${{ matrix.composer }}" --update-with-dependencies
