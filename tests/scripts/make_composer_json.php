@@ -37,6 +37,10 @@ $rootComposerJson['repositories'][] = array(
 
 file_put_contents($targetFile, json_encode($rootComposerJson, JSON_PRETTY_PRINT));
 
+echo "============================";
+echo file_get_contents($targetFile);
+echo "============================";
+
 function check_json_error($json)
 {
     if (json_last_error() !== JSON_ERROR_NONE) {
